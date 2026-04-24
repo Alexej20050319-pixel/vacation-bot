@@ -5,12 +5,16 @@ from datetime import datetime, date
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-# ========== ТОКЕН БОТА (ЗАМЕНИТЕ НА СВОЙ) ==========
-TOKEN = "8604426314:AAGrw2LjanftIfnwWeGe5nPdtSdtECFSN_A"
+# ========== ТОКЕН БЕРЁМ ИЗ ПЕРЕМЕННОЙ ОКРУЖЕНИЯ ==========
+TOKEN = os.environ.get("BOT_TOKEN")
+
+if not TOKEN:
+    raise ValueError("❌ BOT_TOKEN не задан! Добавьте переменную окружения в Render")
 
 # ========== ХРАНЕНИЕ ДАННЫХ ==========
 DATA_DIR = "vacation_data"
 os.makedirs(DATA_DIR, exist_ok=True)
+
 
 PLANS_FILE = os.path.join(DATA_DIR, "plans.json")
 TASKS_FILE = os.path.join(DATA_DIR, "tasks.json")
